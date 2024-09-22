@@ -5,6 +5,7 @@ import Data.*;
 import java.io.*;
 import java.util.*;
 
+import static Data.WOrder.getBriefWOInfo;
 import static filesOperations.in_out.WO_to_File;
 
 public class Model {
@@ -37,18 +38,11 @@ public class Model {
      */
     public static void testList() throws IOException {
         System.out.println();
-        System.out.println("*********************************************************************************************************************************");
-        System.out.println("!!!!!!!!!!!     попытка чтения clients.txt");
-
         Client.clients_from_File("./src/main/java/Files/clients.txt");
-
         System.out.println("!!!!!!!!!!!     прочитан src/main/java/Files/clients.bak");
-
         Client.clients_to_File("./src/main/java/Files/clients.bak");
-
         Mashine.mashines_from_File("./src/main/java/Files/machines.txt");
         Mashine.mashines_to_File("./src/main/java/Files/machines.bak");
-
         WO_from_File("./src/main/java/Files/workorders.txt");
         WO_to_File("./src/main/java/Files/workorders.bak");
 
@@ -182,5 +176,34 @@ public class Model {
     public static int findClientByName(String clName) {
         return 11111;
     }
+
+    /**
+     * == Процедура вывода последних элементов списка
+     * @param list - список woLinkList
+     * @param num - количество выводимых элементов
+     */
+    public static void listShow(woLinkList list, int num) {
+        System.out.println(WOrder.showHeaderForMenu());
+//        int n = 0;
+        int n = list.getElementsCount();
+//        woLink element = list.last;
+        woLink curr = list.last;
+//        woLinkList.setCurrentElement(0);
+        // Проверка на существование выводимого числа элементов в списке list
+        if (num > n) {
+            num = n;
+        }
+        // --- конец проверки
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
+        for ( int i = 1; i <= n; i++) {
+
+            System.out.println(getBriefWOInfo(curr.w_order));
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
+            curr = curr.getPrev();
+        }
+
+    }
+
+
 
 }
