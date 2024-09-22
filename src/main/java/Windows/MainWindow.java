@@ -16,8 +16,8 @@ public class MainWindow extends JFrame {
 
     public MainWindow() throws HeadlessException {
         final int WINDOW_HEIGHT = 600;
-        final int WINDOW_WIDTH = 1000;
-        final int WINDOW_POSX = 200;
+        final int WINDOW_WIDTH = 1300;
+        final int WINDOW_POSX = 100;
         final int WINDOW_POSY = 200;
 
         final int worksArraySize = 8; // Количество полей в правой панели
@@ -31,15 +31,15 @@ public class MainWindow extends JFrame {
         setResizable(false);
 // *** Правая панель
         JPanel panRight = new JPanel(new GridLayout(worksArraySize, 1));
-        panRight.setSize(200, 3);
+        panRight.setSize(400, 3);
 //        ***  Содержимое правой панели
     // Объявляем массив из полей
         ArrayList<JTextField> rightTextArray = new ArrayList<JTextField>(worksArraySize);
 
     // Заполняем массив полями, добавляя их в правую панель
         for (int i = 0; i <= worksArraySize-1; i++) {
-            JTextField fieldR = new JTextField(75);
-            fieldR.setText("Это номер " + i);
+            JTextField fieldR = new JTextField(105);
+            fieldR.setText("");
             rightTextArray.add(fieldR);
             panRight.add(fieldR);
         }
@@ -47,7 +47,7 @@ public class MainWindow extends JFrame {
         add(panRight, BorderLayout.EAST);
 // *** Правая панель завершение
 
-
+    listShowForTextArea(rightTextArray, woList, 7);
         setVisible(true);
     }
 
@@ -58,10 +58,12 @@ public class MainWindow extends JFrame {
      * @param list - список woLinkList
      * @param num - количество выводимых элементов
      */
-    public static String listShowForTextArea(JTextField[] arr, woLinkList list, int num) {
+    public static void listShowForTextArea(ArrayList<JTextField> arr, woLinkList list, int num) {
         String result = "";
 //        area.setText(WOrder.showHeaderForMenu());
-        result += WOrder.showHeaderForMenu() + "\n";
+        arr.get(0).setText(WOrder.showHeaderForMenu());
+
+
 //        int n = 0;
         int n = list.getElementsCount();
 //        woLink element = list.last;
@@ -74,13 +76,12 @@ public class MainWindow extends JFrame {
         // --- конец проверки
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
         for ( int i = 1; i <= n; i++) {
-            result += getBriefWOInfoForTextArea(curr.w_order) + "\n";
+            arr.get(i).setText(getBriefWOInfoForTextArea(curr.w_order));
 //            area.setText(area.getText() + getBriefWOInfo(curr.w_order) + "\n");
             System.out.println(getBriefWOInfo(curr.w_order));
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
             curr = curr.getPrev();
         }
-        return result;
 
     }
 
