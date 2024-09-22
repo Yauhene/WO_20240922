@@ -20,6 +20,8 @@ public class MainWindow extends JFrame {
         final int WINDOW_POSX = 200;
         final int WINDOW_POSY = 200;
 
+        final int worksArraySize = 8; // Количество полей в правой панели
+
         woLinkList woList = Model.getWoList();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,21 +29,23 @@ public class MainWindow extends JFrame {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle("Главное окно");
         setResizable(false);
-// Правая панель
-        JPanel panRight = new JPanel();
-//        Содержимое правой панели
-        ArrayList<JTextField> right = new ArrayList<JTextField>(7);
-        JTextArea areaRight = new JTextArea(20, 90);
-        areaRight.setFont(new Font("Dialog", Font.PLAIN, 12));
-        areaRight.setLineWrap(true);
-        areaRight.setWrapStyleWord(true);
-        panRight.add(areaRight);
-        String areaRightContent = areaRight.getText();
-        System.out.println("areaRightContent: " + areaRightContent);
+// *** Правая панель
+        JPanel panRight = new JPanel(new GridLayout(worksArraySize, 1));
+        panRight.setSize(200, 3);
+//        ***  Содержимое правой панели
+    // Объявляем массив из полей
+        ArrayList<JTextField> rightTextArray = new ArrayList<JTextField>(worksArraySize);
+
+    // Заполняем массив полями, добавляя их в правую панель
+        for (int i = 0; i <= worksArraySize-1; i++) {
+            JTextField fieldR = new JTextField(75);
+            fieldR.setText("Это номер " + i);
+            rightTextArray.add(fieldR);
+            panRight.add(fieldR);
+        }
 
         add(panRight, BorderLayout.EAST);
-        areaRight.setText(listShowForTextArea(areaRight, Model.getWoList(), 7));
-// Правая панель завершение
+// *** Правая панель завершение
 
 
         setVisible(true);
@@ -54,7 +58,7 @@ public class MainWindow extends JFrame {
      * @param list - список woLinkList
      * @param num - количество выводимых элементов
      */
-    public static String listShowForTextArea(JTextArea area, woLinkList list, int num) {
+    public static String listShowForTextArea(JTextField[] arr, woLinkList list, int num) {
         String result = "";
 //        area.setText(WOrder.showHeaderForMenu());
         result += WOrder.showHeaderForMenu() + "\n";
